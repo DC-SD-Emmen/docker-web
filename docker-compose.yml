@@ -11,8 +11,8 @@ services:
       - "3306:3306"
     build: './build/mysql'
     environment:
-      MYSQL_ROOT_PASSWORD: "super-secret-password"
-      MYSQL_DATABASE: "my-wonderful-website"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "database"
     volumes:
       - dbData:/var/lib/mysql
   phpmyadmin:
