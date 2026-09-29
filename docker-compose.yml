@@ -1,26 +1,52 @@
 services:
-  php-apache:
+  nginx:
+    image: nginx:stable-alpine
     ports:
       - "80:80"
-    build: './docker/php'
     volumes:
-      - ./src:/var/www/html
+      - ./src:/app
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+
+  php:
+    build: ./docker/php
+    volumes:
+      - ./src:/app
+    environment:
+      DB_HOST: mysql
+      DB_NAME: ${MYSQL_DATABASE}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - mysql
+
   mysql:
+    image: mysql:8.4
     ports:
-      - "3306:3306"
-    build: './docker/mysql'
+      - "${MYSQL_PORT}:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: "database"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - dbData:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
+
   phpmyadmin:
-    image: phpmyadmin
-    restart: always
+    image: phpmyadmin:latest
     ports:
-      - 8090:80
+      - "127.0.0.1:${PHPMYADMIN_PORT}:80"
     environment:
-      - PMA_ARBITRARY=1
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      UPLOAD_LIMIT: 64M
+    depends_on:
+      - mysql
+
 volumes:
   app:
-  dbData:
+  mysql-data:
