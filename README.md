@@ -16,12 +16,16 @@ Open de map waar je naartoe hebt gecloned in je favoriete editor (bijvoorbeeld V
 
 ## Docker container starten
 
+Navigeer naar de map waar je deze repository hebt gecloned in je Terminal/PowerShell/Commandprompt. Voer vervolgens een van onderstaande commando's uit.
+
 ```bash
 docker compose up -d      # starten (de eerste keer duurt het even)
 docker compose down       # stoppen
 ```
 
 Open daarna **http://localhost:8080**.
+
+Nadat je `compose up` hebt uitgevoerd verschijnt de container meestal in Docker Desktop. Vanaf nu kun je de container ook vanuit daar starten en stoppen.
 
 ## Jouw PHP-scripts
 
