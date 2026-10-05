@@ -49,7 +49,7 @@ $mysqli = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASSWORD'], $
 $sqlite = new PDO('sqlite:/app/database.sqlite');
 ```
 
-Je ziet dat de code de functie `getenv` meerdere keren aanroept. Met deze functie worden de gegevens uit de environment gehaald (de `.env` file.)
+Je ziet dat de code de super global `$_ENV` meerdere keren aanroept. Met deze variable worden de gegevens uit de environment gehaald. Docker heeft deze in de environment geplaatst aan de hand van je `.env`-file.
 
 > [!CAUTION]
 > Plaats nooit (database) wachtwoorden in je PHP script! Als je dit script namelijk op GitHub plaatst kan iedereen je (database) wachtwoorden in zien.
