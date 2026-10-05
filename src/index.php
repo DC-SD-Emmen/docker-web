@@ -4,8 +4,8 @@
 // Deze bestanden zijn puur ter demonstratie.
 
 try {
-    $dsn = 'mysql:host=mysql;dbname=database;charset=utf8mb4';
-    $pdo = new PDO($dsn, 'root', 'root');
+    $dsn = 'mysql:host='. $_ENV['DB_HOST'] .';dbname='. $_ENV['DB_NAME'] .';charset=utf8mb4';
+    $pdo = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
     $db = 'Verbonden met MySQL ' . $pdo->query('SELECT VERSION()')->fetchColumn();
 } catch (PDOException $e) {
     $db = 'Geen verbinding met MySQL: ' . $e->getMessage();

@@ -41,18 +41,18 @@ In deze container zit ook een database. Wil je verbinden met de database gebruik
 
 ```php
 $pdo = new PDO(
-    'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_NAME') . ';charset=utf8mb4',
-    getenv('DB_USER'),
-    getenv('DB_PASSWORD')
+    'mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . ';charset=utf8mb4',
+    $_ENV['DB_USER'],
+    $_ENV['DB_PASSWORD']
 );
-$mysqli = new mysqli(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASSWORD'), getenv('DB_NAME'));
+$mysqli = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASSWORD'], $_ENV['DB_NAME']);
 $sqlite = new PDO('sqlite:/app/database.sqlite');
 ```
 
 Je ziet dat de code de functie `getenv` meerdere keren aanroept. Met deze functie worden de gegevens uit de environment gehaald (de `.env` file.)
 
-[!CAUTION]
-Plaats nooit (database) wachtwoorden in je PHP script! Als je dit script namelijk op GitHub plaatst kan iedereen je (database) wachtwoorden in zien.
+> [!CAUTION]
+> Plaats nooit (database) wachtwoorden in je PHP script! Als je dit script namelijk op GitHub plaatst kan iedereen je (database) wachtwoorden in zien.
 
 ## Xdebug
 
