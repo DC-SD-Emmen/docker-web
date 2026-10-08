@@ -1,0 +1,8 @@
+# Altijd LF-regeleindes, ook op Windows. De bestanden draaien in Linux-containers;
+# met Windows-regeleindes (CRLF) faalt o.a. docker/mysql/zz-rechten.sh en start MySQL niet.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
